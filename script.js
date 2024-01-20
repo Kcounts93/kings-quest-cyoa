@@ -3,6 +3,7 @@ let gameState = {
   location: "intro",
 };
 
+// PATH RENDER
 function render() {
   const storySection = document.getElementById("story-section");
   const decisionSection = document.getElementById("decision-section");
@@ -19,19 +20,26 @@ function render() {
     case "intro":
       renderIntro(storySection, decisionSection, imageSection);
       break;
-    // character choice
+    // Character Choice
     case "start":
       renderStart(storySection, decisionSection, imageSection);
       break;
-
-    // Cases for other locations and decision points...
+    //   River crossing
+    case "riverCrossing":
+      renderRiverCrossing(storySection, decisionSection, imageSection);
+      break;
+    //   Enchanted Forest
+    case "enchantedForest":
+      renderEnchantedForest(storySection, decisionSection, imageSection);
+      break;
+    // Cases for other decision points go here...
     default:
       break;
   }
 }
-
+// GAME INTRO
 function renderIntro(storySection, decisionSection, imageSection) {
-  // Set introduction text
+  // Set Intro
   storySection.innerHTML = `
         <img src="images/king.png">
         <h1>Welcome to The King's Quest</h1>
@@ -41,7 +49,7 @@ function renderIntro(storySection, decisionSection, imageSection) {
         </p>
     `;
 
-  // Create the Start Game button
+  // Start Game button
   const startButton = document.createElement("button");
   startButton.innerText = "Start Game";
   startButton.classList.add("start-button"); // Assign a unique class
@@ -51,7 +59,7 @@ function renderIntro(storySection, decisionSection, imageSection) {
   };
   decisionSection.appendChild(startButton);
 }
-
+// CHOOSE YOUR CHARACTER
 function renderStart(storySection, decisionSection, imageSection) {
   // Story text
   storySection.innerHTML =
@@ -65,7 +73,7 @@ function renderStart(storySection, decisionSection, imageSection) {
   const characters = [
     { name: "Lorien, the Skilled Archer", imgSrc: "images/lorien.png" },
     { name: "Thane, the Brave Knight", imgSrc: "images/thane.png" },
-    { name: "Eldrin, the Tactical Wizard", imgSrc: "images/eldrin.png" },
+    { name: "Eldrin, the Mystical Wizard", imgSrc: "images/eldrin.png" },
   ];
 
   /// Character selection containers, images, and buttons
@@ -77,11 +85,12 @@ function renderStart(storySection, decisionSection, imageSection) {
     image.src = character.imgSrc;
     image.alt = character.name;
     image.classList.add("character-image");
-    image.onclick = () => selectCharacter(character); // Allow image click to select character
+    image.onclick = () => selectCharacter(character);
     charContainer.appendChild(image);
 
     const button = document.createElement("button");
     button.innerText = character.name;
+    button.classList.add("character-select-button");
     button.onclick = () => selectCharacter(character);
     charContainer.appendChild(button);
 
@@ -93,9 +102,124 @@ function renderStart(storySection, decisionSection, imageSection) {
 
 function selectCharacter(character) {
   gameState.character = character.name;
-  gameState.location = "nextState"; // Update based on game logic
+  gameState.location = "riverCrossing"; // Update based on game logic
   render();
 }
+// RIVER CROSSING DECISION
+function renderRiverCrossing(storySection, decisionSection, imageSection) {
+  // Set story for river crossing
+  storySection.innerHTML = `
+      <img src="images/river.png" />
+      <h2>The River Crossing</h2>
+      <p>The path leads you to the Whispering River, which is known for its treacherous currents and mystical creatures.</p>
+    `;
 
+  // Clear decisionSection for new screen
+  const clearAndProceed = (handler) => {
+    decisionSection.innerHTML = "";
+    storySection.innerHTML = ""; //  clear the story section
+    imageSection.innerHTML = ""; //  clear the image section
+    handler();
+  };
+
+  // Option 1 button
+  const option1Button = document.createElement("button");
+  option1Button.innerText = "1) Attempt to find a safe crossing point";
+  option1Button.classList.add("option-button");
+  option1Button.onclick = () => clearAndProceed(handleOption1);
+  decisionSection.appendChild(option1Button);
+
+  // Option 2 button
+  const option2Button = document.createElement("button");
+  option2Button.innerText =
+    "2) Try to convince a local fisherman to take you across";
+  option2Button.classList.add("option-button");
+  option2Button.onclick = () => clearAndProceed(handleOption2);
+  decisionSection.appendChild(option2Button);
+
+  // Option 3 button
+  const option3Button = document.createElement("button");
+  option3Button.innerText =
+    "3) Use your character's unique skill in hopes it gets you across";
+  option3Button.classList.add("option-button");
+  option3Button.onclick = () => clearAndProceed(handleOption3);
+  decisionSection.appendChild(option3Button);
+}
+
+function handleOption1() {
+  const storySection = document.getElementById("story-section");
+  storySection.innerHTML += `
+      <img src="images/tree-river.png" alt="tree over treacherous river" />
+      <p>You find a tree that has fallen over the river and you cross successfully. The mystical forest lies ahead.</p>
+    `;
+
+  // Continue Adventure
+  const continueButton = document.createElement("button");
+  continueButton.innerText = "Continue Adventure";
+  continueButton.classList.add("continue-button"); // Assign a unique class for styling if needed
+  continueButton.onclick = () => {
+    gameState.location = "enchantedForest"; // Update to the next location
+    render();
+  };
+  storySection.appendChild(continueButton);
+}
+
+function handleOption2() {
+  const storySection = document.getElementById("story-section");
+  storySection.innerHTML += `
+  <img src="images/fisherman-river.png" alt="fisherman in treacherous river" />
+  <p>The local fisherman agrees to take you across. The mystical forest lies ahead.</p>
+`;
+
+  // continue adventure
+  const continueButton = document.createElement("button");
+  continueButton.innerText = "Continue Adventure";
+  continueButton.classList.add("continue-button"); // Assign a unique class for styling if needed
+  continueButton.onclick = () => {
+    gameState.location = "enchantedForest"; // Update to the next location
+    render();
+  };
+  storySection.appendChild(continueButton);
+}
+
+function handleOption3() {
+  const storySection = document.getElementById("story-section");
+  const characterSkill = {
+    "Lorien, the Skilled Archer": {
+      description:
+        "Lorien uses arrows and a piece of leather to create a makeshift zipline. The mystical forest lies ahead.",
+      img: "images/lorien-river.png",
+    },
+    "Thane, the Brave Knight": {
+      description:
+        "Thane powers through the current on the back of his horse. The mystical forest lies ahead.",
+      img: "images/knight-river.png",
+    },
+    "Eldrin, the Mystical Wizard": {
+      description:
+        "Eldrin casts a spell to calm the waters and walks through. The mystical forest lies ahead.",
+      img: "images/wizard-river.png",
+    },
+  };
+  const skillData = characterSkill[gameState.character];
+  storySection.innerHTML += `
+      <img src="${skillData.img}" alt="Skill Image" />
+      <p>${skillData.description}</p>
+    `;
+
+  // Continue Adventure button
+  const continueButton = document.createElement("button");
+  continueButton.innerText = "Continue Adventure";
+  continueButton.classList.add("continue-button");
+  continueButton.onclick = () => {
+    gameState.location = "enchantedForest"; // Update to the next location
+    render();
+  };
+  storySection.appendChild(continueButton);
+}
+// ENCHANTED FOREST
+function renderEnchantedForest(storySection, decisionSection, imageSection) {
+  // Set introduction text
+}
 // Initial render
 render();

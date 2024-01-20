@@ -38,7 +38,7 @@ body {
                  0 3px 0 0 #415720 !important;
 }
 
-#decision-section button {
+.character-select-button {
     font-family: 'Roboto', monospace;
     font-weight: 500;
     letter-spacing: 0.025em;
@@ -56,7 +56,7 @@ body {
     cursor: pointer;
 }
 
-#decision-section button:active {
+.character-select-button:active {
     padding: 10px;
     margin: 5px;
     background-color: #d17a2e;
@@ -70,7 +70,7 @@ body {
     cursor: pointer;
 }
 
-#decision-section button:hover {
+.character-select-button:hover {
     background-color: #da7902;
     transition-duration: 0.5s;
 }
@@ -95,4 +95,31 @@ align-items: center;
 
 .character-image {
 border-radius: 1px;
+}
+
+.option-button {
+    font-family: 'Roboto Mono', monospace;
+    color: #4c2a00;
+    cursor: pointer;
+    margin: 1em 0em;
+    display: block; 
+    background-color: transparent;
+    border: none;
+}
+
+.option-button:hover {
+    transform: scale(1.05);
+    transition-duration: 0.5s;
+    text-decoration: none;
+}
+
+.continue-button {
+    background-color: #5e7f2e !important;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    box-shadow:   -3px 0 0 0 #415720,
+                 3px 0 0 0 #415720,
+                 0 -3px 0 0 #415720,
+                 0 3px 0 0 #415720 !important;
 }
