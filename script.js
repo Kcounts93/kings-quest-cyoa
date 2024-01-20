@@ -43,6 +43,9 @@ function render() {
     case "swingingBridge":
       renderSwingingBridge(storySection, decisionSection, imageSection);
       break;
+    case "bridgeRisk":
+      renderBridgeRisk(storySection, decisionSection, imageSection);
+      break;
     // Cases for other decision points go here...
     default:
       break;
@@ -322,7 +325,49 @@ function renderSwingingBridge(storySection, decisionSection, imageSection) {
   };
   decisionSection.appendChild(crossBridgeButton);
 }
+// BRDIGE RISK
+function renderBridgeRisk(storySection, decisionSection, imageSection) {
+  // Clear previous content
+  storySection.innerHTML = "";
+  decisionSection.innerHTML = "";
+  imageSection.innerHTML = "";
+  // Randomly choose an outcome
+  const outcome = Math.random() < 0.7 ? "success" : "fall"; // 50% chance for each outcome
 
+  if (outcome === "fall") {
+    // The player falls
+    storySection.innerHTML = `
+    <img src="images/bridgefall.png" alt="falling from bridge" />
+            <h2>Uh oh...</h2>
+            <p>One of the bridge planks fell from underneath you... you fall to the chasm below.</p>
+        `;
+
+    // Restart button
+    const restartButton = document.createElement("button");
+    restartButton.innerText = "Restart";
+    restartButton.classList.add("restart-button");
+    restartButton.onclick = () => {
+      gameState.location = "intro"; // Update to the intro location
+      render();
+    };
+    decisionSection.appendChild(restartButton);
+  } else {
+    // The player successfully crosses the bridge
+    storySection.innerHTML = `
+            <h2>You walk carefully in hopes you make it to the other side...</h2>
+        `;
+
+    // Continue Journey button
+    const continueButton = document.createElement("button");
+    continueButton.innerText = "Continue Journey";
+    continueButton.classList.add("continue-button");
+    continueButton.onclick = () => {
+      gameState.location = "finalCastle"; // Update to the finalCastle location
+      render();
+    };
+    decisionSection.appendChild(continueButton);
+  }
+}
 // Message Delivered
 // Initial render
 render();
