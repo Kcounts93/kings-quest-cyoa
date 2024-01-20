@@ -31,7 +31,7 @@ body {
     font-family: 'Roboto Mono', monospace;
     font-size: 14px;
     background-color: #5e7f2e !important;
-    width: 25%;
+    width: 30%;
     padding: 8px 4px !important;
     color: white;
     border: none;
@@ -83,6 +83,7 @@ body {
 .all-characters-container {
  display: flex;
  flex-direction: row;
+ flex-wrap: wrap;
  justify-content: space-around;
 }
 
@@ -99,6 +100,7 @@ border-radius: 1px;
 
 .option-button {
     font-family: 'Roboto Mono', monospace;
+    text-align: left;
     color: #4c2a00;
     cursor: pointer;
     margin: 1em 0em;
@@ -117,7 +119,7 @@ border-radius: 1px;
     font-family: 'Roboto Mono', monospace;
     font-size: 12px;
     background-color: #5e7f2e !important;
-    width: 25%;
+    width: 50%;
     padding: 8px 4px !important;
     color: white;
     border: none;
