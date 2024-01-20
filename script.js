@@ -71,9 +71,9 @@ function renderStart(storySection, decisionSection, imageSection) {
 
   // Character data
   const characters = [
-    { name: "Lorien, the Skilled Archer", imgSrc: "images/lorien.png" },
-    { name: "Thane, the Brave Knight", imgSrc: "images/thane.png" },
-    { name: "Eldrin, the Mystical Wizard", imgSrc: "images/eldrin.png" },
+    { name: "Lorien, The Archer", imgSrc: "images/lorien.png" },
+    { name: "Thane, The Knight", imgSrc: "images/thane.png" },
+    { name: "Eldrin, The Wizard", imgSrc: "images/eldrin.png" },
   ];
 
   /// Character selection containers, images, and buttons
