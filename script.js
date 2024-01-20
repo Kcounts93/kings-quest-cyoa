@@ -32,6 +32,10 @@ function render() {
     case "enchantedForest":
       renderEnchantedForest(storySection, decisionSection, imageSection);
       break;
+    //   Evil Forces
+    case "evilForces":
+      renderEvilForces(storySection, decisionSection, imageSection);
+      break;
     // Cases for other decision points go here...
     default:
       break;
@@ -220,7 +224,7 @@ function handleOption3() {
 // ENCHANTED FOREST
 function renderEnchantedForest(storySection, decisionSection, imageSection) {
   storySection.innerHTML = `
-              <img src="images/enchanted-forest.png">
+              <img src="images/enchanted-forest.png" alt="enchanted forest with paths" />
               <h1>The Enchanted Forest</h1>
               <p>The forest is dense and its paths are misleading. Many have entered, few have returned. Choose your path...
               </p>
@@ -245,6 +249,36 @@ function renderEnchantedForest(storySection, decisionSection, imageSection) {
     render();
   };
   decisionSection.appendChild(option2Button);
+}
+
+// EVIL FORCES ENCOUNTER
+function renderEvilForces(storySection, decisionSection, imageSection) {
+  storySection.innerHTML = `
+        <img src="images/enchanted-evil.png" alt="Evil Forces" />
+        <h2>Uh oh...</h2>
+        <p>You have run into the evil forces that have taken over the forest!
+        Do you proceed to fight?</p>
+    `;
+
+  // Fight button
+  const fightButton = document.createElement("button");
+  fightButton.innerText = "Fight!";
+  fightButton.classList.add("option-button");
+  fightButton.onclick = () => {
+    gameState.location = "gameOver";
+    render();
+  };
+  decisionSection.appendChild(fightButton);
+
+  // Run button
+  const runButton = document.createElement("button");
+  runButton.innerText = "Run!";
+  runButton.classList.add("option-button");
+  runButton.onclick = () => {
+    gameState.location = "gameOver";
+    render();
+  };
+  decisionSection.appendChild(runButton);
 }
 
 // Swinging Bridge
