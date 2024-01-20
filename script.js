@@ -36,6 +36,10 @@ function render() {
     case "evilForces":
       renderEvilForces(storySection, decisionSection, imageSection);
       break;
+    //   Restart
+    case "gameOver":
+      renderGameOver(storySection, decisionSection, imageSection);
+      break;
     // Cases for other decision points go here...
     default:
       break;
@@ -279,6 +283,24 @@ function renderEvilForces(storySection, decisionSection, imageSection) {
     render();
   };
   decisionSection.appendChild(runButton);
+}
+
+// GAME RESTART
+function renderGameOver(storySection, decisionSection, imageSection) {
+  storySection.innerHTML = `
+        <img src="images/ghost.png" alt="Ghost in the Forest" />
+        <h2>Oh no! You have been taken over by the evil forces and are forever a ghost in the forest...</h2>
+    `;
+
+  // Restart button
+  const restartButton = document.createElement("button");
+  restartButton.innerText = "Restart";
+  restartButton.classList.add("restart-button");
+  restartButton.onclick = () => {
+    gameState.location = "intro";
+    render();
+  };
+  decisionSection.appendChild(restartButton);
 }
 
 // Swinging Bridge

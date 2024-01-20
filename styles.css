@@ -126,3 +126,17 @@ border-radius: 1px;
                  0 -3px 0 0 #415720,
                  0 3px 0 0 #415720 !important;
 }
+
+.restart-button {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    background-color: #7f2e2e !important;
+    width: 25%;
+    padding: 8px 4px !important;
+    color: white;
+    border: none;
+    box-shadow:   -3px 0 0 0 #572020,
+                 3px 0 0 0 #572020,
+                 0 -3px 0 0 #572020,
+                 0 3px 0 0 #572020 !important;
+}
