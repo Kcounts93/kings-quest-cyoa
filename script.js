@@ -46,6 +46,9 @@ function render() {
     case "bridgeRisk":
       renderBridgeRisk(storySection, decisionSection, imageSection);
       break;
+    case "finalCastle":
+      renderFinalCastle(storySection, decisionSection, imageSection);
+      break;
     // Cases for other decision points go here...
     default:
       break;
@@ -57,7 +60,7 @@ function renderIntro(storySection, decisionSection, imageSection) {
   storySection.innerHTML = `
         <img src="images/king.png">
         <h1>Welcome to The King's Quest</h1>
-        <p>You are in the ancient realm of Eldoria, a land of magic, mystery, and adventure. <br><br>The king of Eldoria has summoned you to deliver an urgent message to the ruler of a neighboring kingdom. The message is a plea for help, as a dark force is threatening your land. 
+        <p>You are in the ancient realm of Eldoria, a land of magic, mystery, and adventure. <br><br>The king of Eldoria has summoned you to deliver an urgent message to the ruler of a neighboring kingdom, Elvador. The message is a plea for help, as a dark force is threatening your land. 
         <br><br>
         Click to begin your perilous journey...
         </p>
@@ -368,6 +371,37 @@ function renderBridgeRisk(storySection, decisionSection, imageSection) {
     decisionSection.appendChild(continueButton);
   }
 }
-// Message Delivered
+
+// FINAL CASTLE
+function renderFinalCastle(storySection, decisionSection, imageSection) {
+  // Clear previous content
+  storySection.innerHTML = "";
+  decisionSection.innerHTML = "";
+  imageSection.innerHTML = "";
+
+  // Content for the final castle scene
+  storySection.innerHTML = `
+        <img src="images/king-castle.png" alt="Final Castle" />
+        <h2>You made it to Elvador!</h2>
+        <p>You have made it through all the challenges and now stand before the grand castle. The guards recognize the urgency in your eyes and swiftly lead you to the king.</p> 
+    `;
+
+  // Outcome description (you can customize this part based on the player's journey or choices)
+  const outcomeText = document.createElement("p");
+  outcomeText.textContent =
+    "The king listens intently and nods in understanding. Thanks to your bravery and swift actions, alliances are formed, and plans are set in motion to counter the looming threat. You have not just delivered a message; you have brought hope to a kingdom on the brink.";
+  storySection.appendChild(outcomeText);
+
+  // Restart button to play again
+  const restartButton = document.createElement("button");
+  restartButton.innerText = "Play Again";
+  restartButton.classList.add("start-button");
+  restartButton.onclick = () => {
+    gameState.location = "intro"; // Reset the game
+    render();
+  };
+  decisionSection.appendChild(restartButton);
+}
+
 // Initial render
 render();
