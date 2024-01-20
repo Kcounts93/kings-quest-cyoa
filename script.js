@@ -71,9 +71,9 @@ function renderStart(storySection, decisionSection, imageSection) {
 
   // Character data
   const characters = [
-    { name: "Lorien, The Archer", imgSrc: "images/lorien.png" },
-    { name: "Thane, The Knight", imgSrc: "images/thane.png" },
-    { name: "Eldrin, The Wizard", imgSrc: "images/eldrin.png" },
+    { name: "Lorien, the Skilled Archer", imgSrc: "images/lorien.png" },
+    { name: "Thane, the Brave Knight", imgSrc: "images/thane.png" },
+    { name: "Eldrin, the Mystical Wizard", imgSrc: "images/eldrin.png" },
   ];
 
   /// Character selection containers, images, and buttons
@@ -219,7 +219,36 @@ function handleOption3() {
 }
 // ENCHANTED FOREST
 function renderEnchantedForest(storySection, decisionSection, imageSection) {
-  // Set introduction text
+  storySection.innerHTML = `
+              <img src="images/enchanted-forest.png">
+              <h1>The Enchanted Forest</h1>
+              <p>The forest is dense and its paths are misleading. Many have entered, few have returned. Choose your path...
+              </p>
+          `;
+
+  // Option 1 (Left Path) button
+  const option1Button = document.createElement("button");
+  option1Button.innerText = "1) Take the left path";
+  option1Button.classList.add("option-button");
+  option1Button.onclick = () => {
+    gameState.location = "swingingBridge";
+    render();
+  };
+  decisionSection.appendChild(option1Button);
+
+  // Option 2 (Right Path) button
+  const option2Button = document.createElement("button");
+  option2Button.innerText = "2) Take the right path";
+  option2Button.classList.add("option-button");
+  option2Button.onclick = () => {
+    gameState.location = "evilForces";
+    render();
+  };
+  decisionSection.appendChild(option2Button);
 }
+
+// Swinging Bridge
+
+// Message Delivered
 // Initial render
 render();
