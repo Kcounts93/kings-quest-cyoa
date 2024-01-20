@@ -40,6 +40,9 @@ function render() {
     case "gameOver":
       renderGameOver(storySection, decisionSection, imageSection);
       break;
+    case "swingingBridge":
+      renderSwingingBridge(storySection, decisionSection, imageSection);
+      break;
     // Cases for other decision points go here...
     default:
       break;
@@ -132,7 +135,7 @@ function renderRiverCrossing(storySection, decisionSection, imageSection) {
 
   // Option 1 button
   const option1Button = document.createElement("button");
-  option1Button.innerText = "1) Attempt to find a safe crossing point";
+  option1Button.innerText = "- Attempt to find a safe crossing point";
   option1Button.classList.add("option-button");
   option1Button.onclick = () => clearAndProceed(handleOption1);
   decisionSection.appendChild(option1Button);
@@ -140,7 +143,7 @@ function renderRiverCrossing(storySection, decisionSection, imageSection) {
   // Option 2 button
   const option2Button = document.createElement("button");
   option2Button.innerText =
-    "2) Try to convince a local fisherman to take you across";
+    "- Try to convince a local fisherman to take you across";
   option2Button.classList.add("option-button");
   option2Button.onclick = () => clearAndProceed(handleOption2);
   decisionSection.appendChild(option2Button);
@@ -148,7 +151,7 @@ function renderRiverCrossing(storySection, decisionSection, imageSection) {
   // Option 3 button
   const option3Button = document.createElement("button");
   option3Button.innerText =
-    "3) Use your character's unique skill in hopes it gets you across";
+    "- Use your character's unique skill in hopes it gets you across";
   option3Button.classList.add("option-button");
   option3Button.onclick = () => clearAndProceed(handleOption3);
   decisionSection.appendChild(option3Button);
@@ -236,7 +239,7 @@ function renderEnchantedForest(storySection, decisionSection, imageSection) {
 
   // Option 1 (Left Path) button
   const option1Button = document.createElement("button");
-  option1Button.innerText = "1) Take the left path";
+  option1Button.innerText = "- Take the left path";
   option1Button.classList.add("option-button");
   option1Button.onclick = () => {
     gameState.location = "swingingBridge";
@@ -246,7 +249,7 @@ function renderEnchantedForest(storySection, decisionSection, imageSection) {
 
   // Option 2 (Right Path) button
   const option2Button = document.createElement("button");
-  option2Button.innerText = "2) Take the right path";
+  option2Button.innerText = "- Take the right path";
   option2Button.classList.add("option-button");
   option2Button.onclick = () => {
     gameState.location = "evilForces";
@@ -266,7 +269,7 @@ function renderEvilForces(storySection, decisionSection, imageSection) {
 
   // Fight button
   const fightButton = document.createElement("button");
-  fightButton.innerText = "Fight!";
+  fightButton.innerText = "- Fight!";
   fightButton.classList.add("option-button");
   fightButton.onclick = () => {
     gameState.location = "gameOver";
@@ -276,7 +279,7 @@ function renderEvilForces(storySection, decisionSection, imageSection) {
 
   // Run button
   const runButton = document.createElement("button");
-  runButton.innerText = "Run!";
+  runButton.innerText = "- Run!";
   runButton.classList.add("option-button");
   runButton.onclick = () => {
     gameState.location = "gameOver";
@@ -302,8 +305,23 @@ function renderGameOver(storySection, decisionSection, imageSection) {
   };
   decisionSection.appendChild(restartButton);
 }
+// SWINGING BRIDGE
+function renderSwingingBridge(storySection, decisionSection, imageSection) {
+  storySection.innerHTML = `
+        <img src="images/bridge.png" alt="Swinging Bridge" />
+        <h2>The Swinging Bridge</h2>
+        <p>You finally reach the outskirts of the kingdom, but the only way across the chasm is an old, swinging bridge. It looks unstable. You only have one option...</p>
+    `;
 
-// Swinging Bridge
+  // Option button to walk across the bridge
+  const crossBridgeButton = document.createElement("button");
+  crossBridgeButton.innerText = "- Attempt to cross the bridge";
+  crossBridgeButton.classList.add("option-button");
+  crossBridgeButton.onclick = () => {
+    renderBridgeRisk(storySection, decisionSection, imageSection); // Go to the risk assessment of crossing the bridge
+  };
+  decisionSection.appendChild(crossBridgeButton);
+}
 
 // Message Delivered
 // Initial render
