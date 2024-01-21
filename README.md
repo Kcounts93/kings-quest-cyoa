@@ -6,7 +6,7 @@ This project was not just an exercise for my brain but also a heartwarming endea
 
 The idea of this game began with a piece of paper. I wrote out the storyline, branching out the narrative based on choices. The logical flow of "if this is selected, then this happens" was then woven into code. As the project progressed, I realized the potential for optimization.
 
-While this project has been a refreshing and light-hearted journey into the realm of game development, it also opened avenues for further enhancement and learning. Incorporating a more structured approach using objects and specialized rendering functions could help improve the structure of my current code. I also recognized the potential of this project as a perfect candidate for diving into React and practicing state management in, hopefully, a part 2.
+This project has been a refreshing and a light-hearted journey into the realm of game development, it also opened avenues for further enhancement and learning. I was using a switch statement which got very long and individual functions to render my scenes. It made my script file extremely long and difficult to manage. Once I completed my project I decided to clean things up a little but and incorporated a more structured approach using objects and specialized rendering functions. I also recognized the potential of this project as a perfect candidate for diving into React and practicing state management in, hopefully, a part 2 of the King's Quest.
 
 ### Looking Ahead: The King's Quest 2
 

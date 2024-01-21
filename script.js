@@ -3,80 +3,49 @@ let gameState = {
   location: "intro",
 };
 
-// PATH RENDER
+const sceneFunctions = {
+  intro: renderIntro,
+  start: renderStart,
+  riverCrossing: renderRiverCrossing,
+  enchantedForest: renderEnchantedForest,
+  evilForces: renderEvilForces,
+  victoryOverEvil: renderVictoryOverEvil,
+  gameOver: renderGameOver,
+  dragonPeaks: renderDragonPeaks,
+  dragonCave: renderDragonCave,
+  perishedInCold: renderPerishedInCold,
+  shelteredPath: renderShelteredPath,
+  swingingBridge: renderSwingingBridge,
+  bridgeRisk: renderBridgeRisk,
+  getRobbed: renderGetRobbed,
+  failedQuest: renderFailedQuest,
+  finalCastle: renderFinalCastle,
+  // Add more scenes here if needed...
+};
+
 function render() {
   const storySection = document.getElementById("story-section");
   const decisionSection = document.getElementById("decision-section");
   const imageSection = document.getElementById("image-section");
 
-  // Clear previous content
+  clearSections(storySection, decisionSection, imageSection);
+
+  const renderFunc = sceneFunctions[gameState.location];
+  if (renderFunc) {
+    renderFunc(storySection, decisionSection, imageSection);
+  } else {
+    console.error(
+      `No render function found for location: ${gameState.location}`
+    );
+  }
+}
+
+function clearSections(storySection, decisionSection, imageSection) {
   storySection.innerHTML = "";
   decisionSection.innerHTML = "";
   imageSection.innerHTML = "";
-
-  // Render based on game state
-  switch (gameState.location) {
-    // main screen
-    case "intro":
-      renderIntro(storySection, decisionSection, imageSection);
-      break;
-    // Character Choice
-    case "start":
-      renderStart(storySection, decisionSection, imageSection);
-      break;
-    //   River crossing
-    case "riverCrossing":
-      renderRiverCrossing(storySection, decisionSection, imageSection);
-      break;
-    //   Enchanted Forest
-    case "enchantedForest":
-      renderEnchantedForest(storySection, decisionSection, imageSection);
-      break;
-    //   Evil Forces
-    case "evilForces":
-      renderEvilForces(storySection, decisionSection, imageSection);
-      break;
-    case "victoryOverEvil":
-      renderVictoryOverEvil(storySection, decisionSection, imageSection);
-      break;
-    //   Restart
-    case "gameOver":
-      renderGameOver(storySection, decisionSection, imageSection);
-      break;
-    // Dragon Peaks
-    case "dragonPeaks":
-      renderDragonPeaks(storySection, decisionSection, imageSection);
-      break;
-    // Dragon Cave
-    case "dragonCave":
-      renderDragonCave(storySection, decisionSection, imageSection);
-      break;
-    // Dragon Peaks Game Over
-    case "perishedInCold":
-      renderPerishedInCold(storySection, decisionSection, imageSection);
-      break;
-    // Dragon Peaks Success
-    case "shelteredPath":
-      renderShelteredPath(storySection, decisionSection, imageSection);
-      break;
-    // Swingbridge
-    case "swingingBridge":
-      renderSwingingBridge(storySection, decisionSection, imageSection);
-      break;
-    // Bridge Fall
-    case "bridgeRisk":
-      renderBridgeRisk(storySection, decisionSection, imageSection);
-      break;
-    // Game Completion
-    case "finalCastle":
-      renderFinalCastle(storySection, decisionSection, imageSection);
-      break;
-    // Cases for other decision points go here...
-    default:
-      break;
-  }
 }
-// GAME INTRO
+// INTRO
 function renderIntro(storySection, decisionSection, imageSection) {
   // Set Intro
   storySection.innerHTML = `
@@ -98,7 +67,7 @@ function renderIntro(storySection, decisionSection, imageSection) {
   };
   decisionSection.appendChild(startButton);
 }
-// CHOOSE YOUR CHARACTER
+// CHARACTER CHOICE
 function renderStart(storySection, decisionSection, imageSection) {
   // Story text
   storySection.innerHTML =
@@ -138,20 +107,16 @@ function renderStart(storySection, decisionSection, imageSection) {
 
   decisionSection.appendChild(allCharactersContainer);
 }
-
-function selectCharacter(character) {
-  gameState.character = character.name;
-  gameState.location = "riverCrossing"; // Update based on game logic
-  render();
-}
-// RIVER CROSSING DECISION
+// RIVER CROSSING
 function renderRiverCrossing(storySection, decisionSection, imageSection) {
   // Set story for river crossing
   storySection.innerHTML = `
-      <img src="images/river.png" />
-      <h2>The River Crossing</h2>
-      <h3>The path leads you to the Whispering River, which is known for its treacherous currents and mystical creatures.</h3>
-    `;
+<img src="images/river.png" />
+<h2>The River Crossing</h2>
+<h3>The path leads you to the Whispering River, which is known for its treacherous currents and mystical creatures.<br><br> What will you do?</h3>
+
+
+`;
 
   // Clear decisionSection for new screen
   const clearAndProceed = (handler) => {
@@ -163,7 +128,7 @@ function renderRiverCrossing(storySection, decisionSection, imageSection) {
 
   // Option 1 button
   const option1Button = document.createElement("button");
-  option1Button.innerText = "→ Attempt to find a safe crossing point";
+  option1Button.innerText = "1) Attempt to find a safe crossing point";
   option1Button.classList.add("option-button");
   option1Button.onclick = () => clearAndProceed(handleOption1);
   decisionSection.appendChild(option1Button);
@@ -171,7 +136,7 @@ function renderRiverCrossing(storySection, decisionSection, imageSection) {
   // Option 2 button
   const option2Button = document.createElement("button");
   option2Button.innerText =
-    "→ Try to convince a local fisherman to take you across";
+    "2) Try to convince a local fisherman to take you across";
   option2Button.classList.add("option-button");
   option2Button.onclick = () => clearAndProceed(handleOption2);
   decisionSection.appendChild(option2Button);
@@ -179,7 +144,7 @@ function renderRiverCrossing(storySection, decisionSection, imageSection) {
   // Option 3 button
   const option3Button = document.createElement("button");
   option3Button.innerText =
-    "→ Use your character's unique skill in hopes it gets you across";
+    "3) Use your character's unique skill in hopes it gets you across";
   option3Button.classList.add("option-button");
   option3Button.onclick = () => clearAndProceed(handleOption3);
   decisionSection.appendChild(option3Button);
@@ -188,9 +153,9 @@ function renderRiverCrossing(storySection, decisionSection, imageSection) {
 function handleOption1() {
   const storySection = document.getElementById("story-section");
   storySection.innerHTML += `
-      <img src="images/tree-river.png" alt="tree over treacherous river" />
-      <h3>You find a tree that has fallen over the river and you cross successfully. The mystical forest lies ahead.</h3>
-    `;
+<img src="images/tree-river.png" alt="tree over treacherous river" />
+<h3>You find a tree that has fallen over the river and you cross successfully. The mystical forest lies ahead.</h3>
+`;
 
   // Continue Adventure
   const continueButton = document.createElement("button");
@@ -206,8 +171,8 @@ function handleOption1() {
 function handleOption2() {
   const storySection = document.getElementById("story-section");
   storySection.innerHTML += `
-  <img src="images/fisherman-river.png" alt="fisherman in treacherous river" />
-  <h3>The local fisherman agrees to take you across. <br>The enchanted forest lies ahead.</h3>
+<img src="images/fisherman-river.png" alt="fisherman in treacherous river" />
+<h3>The local fisherman agrees to take you across. <br>The enchanted forest lies ahead.</h3>
 `;
 
   // continue adventure
@@ -242,9 +207,9 @@ function handleOption3() {
   };
   const skillData = characterSkill[gameState.character];
   storySection.innerHTML += `
-      <img src="${skillData.img}" alt="Skill Image" />
-      <h3>${skillData.description}</h3>
-    `;
+<img src="${skillData.img}" alt="Skill Image" />
+<h3>${skillData.description}</h3>
+`;
 
   // Continue Adventure button
   const continueButton = document.createElement("button");
@@ -259,15 +224,15 @@ function handleOption3() {
 // ENCHANTED FOREST
 function renderEnchantedForest(storySection, decisionSection, imageSection) {
   storySection.innerHTML = `
-              <img src="images/enchanted-forest.png" alt="enchanted forest with paths" />
-              <h1>The Enchanted Forest</h1>
-              <h3>The forest is dense and its paths are misleading. Many have entered, few have returned. Choose your path...
-              </h3>
-          `;
+  <img src="images/enchanted-forest.png" alt="enchanted forest with paths" />
+  <h1>The Enchanted Forest</h1>
+  <h3>The forest is dense and its paths are misleading. Many have entered, few have returned. <br><br>Choose your path...
+  </h3>
+`;
 
   // Option 1 (Left Path) button
   const option1Button = document.createElement("button");
-  option1Button.innerText = "→ Take the right path";
+  option1Button.innerText = "1) Take the right path";
   option1Button.classList.add("option-button");
   option1Button.onclick = () => {
     gameState.location = "evilForces";
@@ -277,7 +242,7 @@ function renderEnchantedForest(storySection, decisionSection, imageSection) {
 
   // Option 2 (Right Path) button
   const option2Button = document.createElement("button");
-  option2Button.innerText = "→ Take the left path";
+  option2Button.innerText = "2) Take the left path";
   option2Button.classList.add("option-button");
   option2Button.onclick = () => {
     gameState.location = "dragonPeaks";
@@ -286,20 +251,19 @@ function renderEnchantedForest(storySection, decisionSection, imageSection) {
   decisionSection.appendChild(option2Button);
 }
 
-// EVIL FORCES ENCOUNTER
 function renderEvilForces(storySection, decisionSection, imageSection) {
   storySection.innerHTML = `
-        <img src="images/enchanted-evil.png" alt="Evil Forces" />
-        <h2>Uh oh...</h2>
-        <h3>You have run into the evil forces that have taken over the forest!
-        Do you proceed to fight?</h3>
-    `;
+  <img src="images/enchanted-evil.png" alt="Evil Forces" />
+  <h2>Uh oh...</h2>
+  <h3>You have run into the evil forces that have taken over the forest!
+  <br><br>Do you proceed to fight?</h3>
+`;
 
   decisionSection.innerHTML = "";
 
   // Fight button with 50/50 chance of success or failure
   const fightButton = document.createElement("button");
-  fightButton.innerText = "→ Fight!";
+  fightButton.innerText = "1) Fight!";
   fightButton.classList.add("option-button");
   fightButton.onclick = () => {
     // 75% chance of winning or losing the fight
@@ -310,7 +274,7 @@ function renderEvilForces(storySection, decisionSection, imageSection) {
 
   // Run button
   const runButton = document.createElement("button");
-  runButton.innerText = "→ Run!";
+  runButton.innerText = "2) Run!";
   runButton.classList.add("option-button");
   runButton.onclick = () => {
     gameState.location = "dragonPeaks";
@@ -318,9 +282,7 @@ function renderEvilForces(storySection, decisionSection, imageSection) {
   };
   decisionSection.appendChild(runButton);
 }
-
-// VICTORY OVER EVIL FORCES SCENE
-
+// VICTORY
 function renderVictoryOverEvil(storySection, decisionSection, imageSection) {
   storySection.innerHTML = `
       <img src="images/victory.png" alt="Victory" />
@@ -353,26 +315,25 @@ function renderGameOver(storySection, decisionSection, imageSection) {
   restartButton.innerText = "Restart";
   restartButton.classList.add("restart-button");
   restartButton.onclick = () => {
-    gameState.location = "intro";
+    gameState.location = "start";
     render();
   };
   decisionSection.appendChild(restartButton);
 }
 // DRAGON PEAKS
-
 function renderDragonPeaks(storySection, decisionSection, imageSection) {
   storySection.innerHTML = `
   
       <img src="images/dragon-peaks.png" alt="Dragon Peaks" />
       <h1>The Dragon Peaks</h1>
-      <h3>The peaks are said to be home to ancient dragons, their silhouettes occasionally visible against the moonlit sky. <br><br>As you ascend the Dragon Peaks, the air grows thinner and a biting cold sets in. Snow blankets the rugged landscape, and howling winds threaten to knock you off your feet. </h3>
+      <h3>The peaks are said to be home to ancient dragons, their silhouettes occasionally visible against the moonlit sky. <br><br>As you ascend the Dragon Peaks, the air grows thinner and a biting cold sets in. Snow blankets the rugged landscape, and howling winds threaten to knock you off your feet. <br><br>Decide your fate...</h3>
   `;
 
   decisionSection.innerHTML = "";
 
   // Option 1 button
   const option1Button = document.createElement("button");
-  option1Button.innerText = "→ You see a cave in the distance. Seek refuge.";
+  option1Button.innerText = "1) You see a cave in the distance. Seek refuge.";
   option1Button.classList.add("option-button");
   option1Button.onclick = () => {
     gameState.location = "dragonCave";
@@ -382,7 +343,7 @@ function renderDragonPeaks(storySection, decisionSection, imageSection) {
 
   // Option 2 button
   const option2Button = document.createElement("button");
-  option2Button.innerText = "→ You push onward and brave the snowstorm.";
+  option2Button.innerText = "2) You push onward and brave the snowstorm.";
   option2Button.classList.add("option-button");
   option2Button.onclick = () => {
     gameState.location = "perishedInCold";
@@ -392,7 +353,7 @@ function renderDragonPeaks(storySection, decisionSection, imageSection) {
 
   // Option 3 button
   const option3Button = document.createElement("button");
-  option3Button.innerText = "→ Find a sheltered path around the mountain.";
+  option3Button.innerText = "3) Find a sheltered path around the mountain.";
   option3Button.classList.add("option-button");
   option3Button.onclick = () => {
     gameState.location = "shelteredPath";
@@ -435,7 +396,7 @@ function renderPerishedInCold(storySection, decisionSection, imageSection) {
   restartButton.innerText = "Restart Game";
   restartButton.classList.add("restart-button");
   restartButton.onclick = () => {
-    gameState.location = "intro"; // Reset the game
+    gameState.location = "start"; // Reset the game
     render();
   };
   decisionSection.appendChild(restartButton);
@@ -466,12 +427,12 @@ function renderSwingingBridge(storySection, decisionSection, imageSection) {
   storySection.innerHTML = `
         <img src="images/bridge.png" alt="Swinging Bridge" />
         <h2>The Swinging Bridge</h2>
-        <h3>You finally reach the outskirts of the kingdom, but the only way across the chasm is an old, swinging bridge. It looks unstable. You only have one option...</h3>
+        <h3>You finally reach the outskirts of the kingdom, but the only way across the chasm is an old, swinging bridge. It looks unstable.<br><br>You only have one option...</h3>
     `;
 
   // Option button to walk across the bridge
   const crossBridgeButton = document.createElement("button");
-  crossBridgeButton.innerText = "- Attempt to cross the bridge";
+  crossBridgeButton.innerText = "1) Attempt to cross the bridge";
   crossBridgeButton.classList.add("option-button");
   crossBridgeButton.onclick = () => {
     renderBridgeRisk(storySection, decisionSection, imageSection); // Go to the risk assessment of crossing the bridge
@@ -500,7 +461,7 @@ function renderBridgeRisk(storySection, decisionSection, imageSection) {
     restartButton.innerText = "Restart";
     restartButton.classList.add("restart-button");
     restartButton.onclick = () => {
-      gameState.location = "intro"; // Update to the intro location
+      gameState.location = "start"; // Update to the intro location
       render();
     };
     decisionSection.appendChild(restartButton);
@@ -515,11 +476,104 @@ function renderBridgeRisk(storySection, decisionSection, imageSection) {
     continueButton.innerText = "Continue Journey";
     continueButton.classList.add("continue-button");
     continueButton.onclick = () => {
-      gameState.location = "finalCastle"; // Update to the finalCastle location
+      gameState.location = "getRobbed"; // Update to the finalCastle location
       render();
     };
     decisionSection.appendChild(continueButton);
   }
+}
+// GET ROBBED
+// GET ROBBED SCENE
+function renderGetRobbed(storySection, decisionSection, imageSection) {
+  storySection.innerHTML = `
+      <img src="images/get-robbed.png" alt="Get Robbed" />
+      <h2>Unexpected Encounter</h2>
+      <h3>As you cross the bridge, a shadowy figure emerges from the mist. It's a robber, and he's after the message you're carrying!</h3>
+  `;
+
+  decisionSection.innerHTML = "";
+
+  // Option 1: Run
+  const runButton = document.createElement("button");
+  runButton.innerText = "1) Make a run for the castle gate!";
+  runButton.classList.add("option-button");
+  runButton.onclick = () => {
+    gameState.location = "failedQuest";
+    render();
+  };
+  decisionSection.appendChild(runButton);
+
+  // Option 2: Fight
+  const fightButton = document.createElement("button");
+  fightButton.innerText = "2) Be a hero, fight off the robber!";
+  fightButton.classList.add("option-button");
+  fightButton.onclick = () => {
+    handleFightOutcome(storySection, decisionSection, imageSection);
+  };
+  decisionSection.appendChild(fightButton);
+}
+
+function handleFightOutcome(storySection, decisionSection, imageSection) {
+  const characterOutcome = {
+    "Lorien, the Skilled Archer": {
+      description:
+        "The robber was no match against Lorien's quick bow. Proceed to the castle.",
+      imgSrc: "images/lorien-fight.png", // Path to Lorien's fight image
+    },
+    "Thane, the Brave Knight": {
+      description:
+        "The robber was no match against Thane's sword. Proceed to the castle.",
+      imgSrc: "images/thane-fight.png", // Path to Thane's fight image
+    },
+    "Eldrin, the Mystical Wizard": {
+      description:
+        "The robber didn't stand a chance against Eldrin's spell. Proceed to the castle.",
+      imgSrc: "images/eldrin-fight.png", // Path to Eldrin's fight image
+    },
+  };
+
+  const outcome = characterOutcome[gameState.character] || {
+    description: "You fought bravely. Proceed to the castle.",
+    imgSrc: "images/default-fight.png", // Path to a default fight image
+  };
+
+  storySection.innerHTML = `
+      <img src="${outcome.imgSrc}" alt="Fight Outcome" />
+      <h2>Victorious</h2>
+      <h3>${outcome.description}</h3>
+  `;
+
+  decisionSection.innerHTML = "";
+
+  const continueButton = document.createElement("button");
+  continueButton.innerText = "Continue Journey";
+  continueButton.classList.add("continue-button");
+  continueButton.onclick = () => {
+    gameState.location = "finalCastle"; // Update to the next location
+    render();
+  };
+  decisionSection.appendChild(continueButton);
+}
+
+// FAILED QUEST SCENE
+function renderFailedQuest(storySection, decisionSection, imageSection) {
+  storySection.innerHTML = `
+      <img src="images/failed-quest.png" alt="Failed Quest" />
+      <h2>Quest Failed</h2>
+      <h3>You attempt to run, but the robber was quick. He succeeds in stealing the message, and your quest has failed.</h3>
+  `;
+
+  decisionSection.innerHTML = "";
+
+  // Restart button
+  const restartButton = document.createElement("button");
+  restartButton.innerText = "Restart";
+  restartButton.classList.add("restart-button");
+  restartButton.onclick = () => {
+    gameState.location = "start";
+    render();
+  };
+  decisionSection.appendChild(restartButton);
 }
 
 // FINAL CASTLE
@@ -551,6 +605,14 @@ function renderFinalCastle(storySection, decisionSection, imageSection) {
     render();
   };
   decisionSection.appendChild(restartButton);
+}
+// ... Add more render functions here as needed
+
+// Utility function to handle character selection
+function selectCharacter(character) {
+  gameState.character = character.name;
+  gameState.location = "riverCrossing"; // Update based on game logic
+  render();
 }
 
 // Initial render

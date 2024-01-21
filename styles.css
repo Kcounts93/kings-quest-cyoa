@@ -110,7 +110,7 @@ border-radius: 1px;
 
 .option-button {
     font-family: 'Roboto Mono', monospace;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 16px;
     text-align: left;
     color: #4c2a00;
@@ -119,6 +119,7 @@ border-radius: 1px;
     display: block; 
     background-color: transparent;
     border: none;
+ 
 }
 
 .option-button:hover {
@@ -165,6 +166,6 @@ border-radius: 1px;
 }
 
 .restart-button:hover {
-    background-color: #7f0808 !important;
+    background-color: #7f2e2e !important;
     transition-duration: 0.5s;
 }
