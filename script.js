@@ -267,7 +267,7 @@ function renderEvilForces(storySection, decisionSection, imageSection) {
   fightButton.classList.add("option-button");
   fightButton.onclick = () => {
     // 75% chance of winning or losing the fight
-    gameState.location = Math.random() < 0.7 ? "victoryOverEvil" : "gameOver";
+    gameState.location = Math.random() < 0.75 ? "victoryOverEvil" : "gameOver";
     render();
   };
   decisionSection.appendChild(fightButton);
@@ -446,7 +446,7 @@ function renderBridgeRisk(storySection, decisionSection, imageSection) {
   decisionSection.innerHTML = "";
   imageSection.innerHTML = "";
   // Randomly choose an outcome
-  const outcome = Math.random() < 0.7 ? "success" : "fall"; // 50% chance for each outcome
+  const outcome = Math.random() < 0.75 ? "success" : "fall"; // 50% chance for each outcome
 
   if (outcome === "fall") {
     // The player falls
