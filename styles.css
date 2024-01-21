@@ -12,6 +12,7 @@ body {
 
 h3 {
     font-weight: 500;
+    font-size: 1em;
 }
 
 #game-container {
@@ -20,7 +21,7 @@ h3 {
     margin: auto;
     background: rgb(254, 228, 179);
     padding: 20px;
-    box-shadow:   -10px 0 0 0 #fcc480,
+    box-shadow: -10px 0 0 0 #fcc480,
                  10px 0 0 0 #fcc480,
                  0 -10px 0 0 #fcc480,
                  0 10px 0 0 #fcc480;
@@ -45,6 +46,8 @@ h3 {
                  0 -3px 0 0 #415720,
                  0 3px 0 0 #415720 !important;
 }
+
+
 
 .start-button:hover {
     background-color: #4e7c08 !important;
@@ -168,4 +171,12 @@ border-radius: 1px;
 .restart-button:hover {
     background-color: #7f2e2e !important;
     transition-duration: 0.5s;
+}
+
+@media screen and (max-width: 768px) {
+
+.character-image {
+height: 100px;
+width: auto;
+}
 }
