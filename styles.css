@@ -10,9 +10,13 @@ body {
     height: 100vh;
 }
 
+h3 {
+    font-weight: 500;
+}
+
 #game-container {
     width: 80%;
-    max-width: 600px;
+    max-width: 800px;
     margin: auto;
     background: rgb(254, 228, 179);
     padding: 20px;
@@ -24,7 +28,6 @@ body {
 
 #story-section {
     margin-bottom: 20px;
-
 }
 
 .start-button {
@@ -35,10 +38,17 @@ body {
     padding: 8px 4px !important;
     color: white;
     border: none;
+    margin-top: 1em;
+    cursor: pointer;
     box-shadow:   -3px 0 0 0 #415720,
                  3px 0 0 0 #415720,
                  0 -3px 0 0 #415720,
                  0 3px 0 0 #415720 !important;
+}
+
+.start-button:hover {
+    background-color: #4e7c08 !important;
+    transition-duration: 0.5s;
 }
 
 .character-select-button {
@@ -100,10 +110,12 @@ border-radius: 1px;
 
 .option-button {
     font-family: 'Roboto Mono', monospace;
+    font-weight: 700;
+    font-size: 16px;
     text-align: left;
     color: #4c2a00;
     cursor: pointer;
-    margin: 1em 0em;
+    margin: 1.5em 0em;
     display: block; 
     background-color: transparent;
     border: none;
@@ -123,10 +135,17 @@ border-radius: 1px;
     padding: 8px 4px !important;
     color: white;
     border: none;
+    margin-top: 1.5em;
+    cursor: pointer;
     box-shadow:   -3px 0 0 0 #415720,
                  3px 0 0 0 #415720,
                  0 -3px 0 0 #415720,
                  0 3px 0 0 #415720 !important;
+}
+
+.continue-button:hover {
+    background-color: #4e7c08 !important;
+    transition-duration: 0.5s;
 }
 
 .restart-button {
@@ -137,8 +156,15 @@ border-radius: 1px;
     padding: 8px 4px !important;
     color: white;
     border: none;
+    margin-top: 1.5em;
+    cursor: pointer;
     box-shadow:   -3px 0 0 0 #572020,
                  3px 0 0 0 #572020,
                  0 -3px 0 0 #572020,
                  0 3px 0 0 #572020 !important;
+}
+
+.restart-button:hover {
+    background-color: #7f0808 !important;
+    transition-duration: 0.5s;
 }
